@@ -19,4 +19,4 @@ jobs:
           pip install pytest pytest-cov 
       - name: run the tests
         run: |
-          pytest --cov
+          pytest --cov=.
