@@ -6,19 +6,17 @@ on:
       - 3-setup-github-actions-for-automated-testing
 
 jobs:
-  runAllTests:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - name: upgrade pip
-        working-directory: ./
-        run: python -m pip install --upgrade pip
-
-      - name: install requirements
-        working-directory: ./
-        run: pip install -r requirements.txt
-        
-      - name: run tests
-        working-directory: ./
-        run: pytest --cov
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: python set up
+        uses: actions/setup-python@v5
+      - name: install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov 
+      - name: run the tests
+        run: |
+          pytest --cov
