@@ -26,7 +26,7 @@ def create_a_course(coursecode: str,
     teacher_id_list = request_body.get("teacher_id_list")
 
     if not semester or not teacher_id_list:
-        raise HTTPException(status_code=422, detail="Request body is empty or undefined'")
+        raise HTTPException(status_code=422, detail="Request body is empty or undefined '")
 
     teacher_list = usermanager.find_users(teacher_id_list)
     course_id = coursemanager.create_a_course(coursecode, semester, teacher_list)
