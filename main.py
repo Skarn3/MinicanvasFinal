@@ -26,7 +26,7 @@ def create_a_course(coursecode: str,
     teacher_id_list = request_body.get("teacher_id_list")
 
     if not semester or not teacher_id_list:
-        raise HTTPException(status_code=422, detail="Request body must contain 'semester' and 'teacher_id_list'")
+        raise HTTPException(status_code=422, detail="Request body is empty or undefined'")
 
     teacher_list = usermanager.find_users(teacher_id_list)
     course_id = coursemanager.create_a_course(coursecode, semester, teacher_list)
@@ -40,15 +40,15 @@ def import_students(courseid: int,
     student_id_list = request_body.get("student_id_list")
 
     if not student_id_list:
-        raise HTTPException(status_code=422, detail="Request body must contain'student_id_list'")
+        raise HTTPException(status_code=422, detail=" student id list is not found in req body'")
     
     course = coursemanager.find_a_course(courseid)
 
     if not course:
-        raise HTTPException(status_code=404, detail=f"Course not found")
+        raise HTTPException(status_code=404, detail=f"Course not found for that id")
 
     student_list = usermanager.find_users(student_id_list)
     course.import_students(student_list)
 
-    return {"msg" : "Students imported"}
+    return {"msg" : "Students imported and added to course"}
     
